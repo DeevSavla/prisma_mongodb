@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id String @id @default(auto()) @map("_id") @db.ObjectId //just a syntax 
+  //id is of type string and treated as id and it is auto incremented and is mapped to _id(bison) field in mongodb 
+  name String? //? - means name can be a optional string
+  email String @unique
+  password String
+  posts Post[] //this means that the user can have an array of posts
+}
+
+model Post{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  slug String
+  title String 
+  body String
+  author User @relation(fields:[authorId],references: [id])
+  //author is the User and relation is between authorId from this model and id from the User model
+  //save authorId for each posts which is referred from id field from User model
+  authorId String @db.ObjectId
+}
