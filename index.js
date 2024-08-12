@@ -1,6 +1,7 @@
 import express from 'express'
 import { configDotenv } from 'dotenv'
 import cookieParser from 'cookie-parser'
+import {userRouter} from './routes/user.route.js'
 //for storing jsonwebtokens 
 
 configDotenv()
@@ -13,6 +14,8 @@ app.use(express.urlencoded({extended:true}))
 
 //cookie middleware 
 app.use(cookieParser())
+
+app.use('/api/v1/users',userRouter)
 
 app.get('/', (req,res)=>{
     res.send('Hi')
