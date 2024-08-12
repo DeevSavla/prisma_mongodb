@@ -1,13 +1,14 @@
 import express from 'express'
 import { configDotenv } from 'dotenv'
 import cookieParser from 'cookie-parser'
+//for storing jsonwebtokens 
 
 configDotenv()
 
 const app = express()
 
 //regular middleware
-app.use(express.json())
+app.use(express.json()) //from req.body we are allowed to use json
 app.use(express.urlencoded({extended:true}))
 
 //cookie middleware 
