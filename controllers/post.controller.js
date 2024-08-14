@@ -33,10 +33,11 @@ const createPostController = async(req,res)=>{
 }
 
 const updatePostController = async(req,res)=>{
-    try {
-        const {id} = req.params
-        const {title,body} = req.body
 
+    const {id} = req.params
+    const {title,body} = req.body
+
+    try {
         const updatedPost = await prisma.post.update({
             where:{
                 id:id
@@ -52,8 +53,44 @@ const updatePostController = async(req,res)=>{
             message:"Post edited successfully",
             updatedPost
         })
-        
+
     } catch (error) {
+        res.json({error:`Post with ${id} does not exist`})
+        throw new Error(error)
+    }
+}
+
+const deletePostController = async(req,res)=>{
+    const {id} = req.params
+
+    try {
+        const result = await prisma.post.delete({
+            where:{
+                id:id,
+            }
+        })
+
+        res.status(201).json({
+            success:true,
+            message:'Post deleted successfully',
+            result
+        })
+    } catch (error) {
+        res.json({error:`Post with ${id} does not exist`})
+        throw new Error(error)
+    }
+}
+
+const getAllPostsController = async (req,res)=>{
+    try {
+        const result = await prisma.post.findMany()
+        res.status(201).json({
+            success:true,
+            message:'Fetched All Posts',
+            result
+        })
+    } catch (error) {
+        res.json({error:'No Posts Found'})
         throw new Error(error)
     }
 }
@@ -61,4 +98,6 @@ const updatePostController = async(req,res)=>{
 export {
     createPostController,
     updatePostController,
+    deletePostController,
+    getAllPostsController
 }

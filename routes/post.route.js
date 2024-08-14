@@ -1,10 +1,16 @@
 import express from 'express'
-import {createPostController,updatePostController} from '../controllers/post.controller.js'
+import {createPostController,
+        updatePostController,
+        deletePostController,
+        getAllPostsController
+        } from '../controllers/post.controller.js'
 import {isLoggedIn} from '../middleware/isLoggedIn.js'
 
 const postRouter = express.Router()
 
-postRouter.post('/createpost',isLoggedIn,createPostController)
-postRouter.patch('/editpost',isLoggedIn,updatePostController)
+postRouter.post('/create-post',isLoggedIn,createPostController)
+postRouter.patch('/edit-post/:id',isLoggedIn,updatePostController)
+postRouter.get('/get-all-posts',isLoggedIn,getAllPostsController)
+postRouter.delete('/delete-post/:id',isLoggedIn,deletePostController)
 
 export {postRouter}
