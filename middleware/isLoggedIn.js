@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 export const isLoggedIn = async(req,res,next)=>{
     try {
         //req.cookie is a method that helps to access the cookie and then .(the name of the cookie)
-        const token = req.cookie.token
+        const token = req.cookies.token
 
         if(!token){
             res.send('Please login')

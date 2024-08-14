@@ -18,6 +18,7 @@ const createPostController = async(req,res)=>{
                 body,
                 author:{connect:{id:authorId}}
                 //In author field, we create a relation between id in User model and authorId in Post model 
+                //while sending json data it should be authorId
             }
         })
 
