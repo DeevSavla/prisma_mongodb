@@ -1,7 +1,8 @@
 import express from 'express'
 import { configDotenv } from 'dotenv'
 import cookieParser from 'cookie-parser'
-import {userRouter,postRouter} from './routes/user.route.js'
+import {userRouter} from './routes/user.route.js'
+import {postRouter} from './routes/post.route.js'
 //for storing jsonwebtokens 
 
 configDotenv()
